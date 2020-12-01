@@ -2,6 +2,7 @@ import pandas as pd
 import requests
 import lxml
 from bs4 import BeautifulSoup
+from db import open_connection, close_connection
 
 def url_from_shortcut(filename):
     url = ''
@@ -24,4 +25,12 @@ r = requests.get(url_danger).content
 soup = BeautifulSoup(r, 'html.parser')
 found_table = choose_table(soup, "Intentional homicide victims per 100,000 inhabitants.")
 
-danger = pd.read_html(str(table_extracted))[2]
+danger = pd.read_html(str(found_table))[2]
+danger = danger.drop(['Region', 'Subregion'], axis=1)
+danger.columns = ['country', 'rate', 'count', 'year']
+
+# Register in database
+conn = open_connection()
+danger.to_sql('danger_100k', con=conn, if_exists='replace')
+close_connection(conn)
+
