@@ -22,6 +22,13 @@ Visit then `localhost:8501` and start playing with the data.
 Launch the following command:
 
 ```
-
 docker image build -t streamlit:app .
 ```
+
+Then start a container named `wh_app` listening on `8501`.
+
+```
+docker container run -p 8501:8501 -d --name wh_app streamlit:app
+```
+
+Open `http://localhost:8501/` and play with the data.
