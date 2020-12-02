@@ -15,4 +15,4 @@ def open_connection(uri=DATABASE_URI):
     return engine
 
 def close_connection(engine):
-    engine.close()
+    engine.dispose()

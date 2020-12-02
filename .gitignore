@@ -2,3 +2,4 @@
 /.venv
 /app/.venv
 /src/.venv
+/src/db/__pycache__
